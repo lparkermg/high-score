@@ -1,6 +1,7 @@
 package api
 
 import (
+	data "mrlparker/high-score/data-access"
 	validators "mrlparker/high-score/validators"
 	"net/http"
 )
@@ -14,6 +15,7 @@ func GetScore(responseWriter http.ResponseWriter, request *http.Request) {
 	}
 
 	// Request is valid, we should call the data access layer.
+	data.GetScores("", 0, 10)
 }
 
 func PostScore(responseWriter http.ResponseWriter, request *http.Request) {
@@ -25,4 +27,5 @@ func PostScore(responseWriter http.ResponseWriter, request *http.Request) {
 	}
 
 	// Request is valid, we should call the data access layer.
+	data.PostScore("", 0)
 }
