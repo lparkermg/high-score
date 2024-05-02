@@ -39,9 +39,9 @@ func GetScore(ctx *gin.Context) {
 	}
 
 	// Request is valid, we should call the data access layer.
-	data.GetScores(gameId, skip, take)
+	scores := data.GetScores(gameId, skip, take)
 
-	ctx.Status(http.StatusOK)
+	ctx.IndentedJSON(http.StatusOK, scores)
 }
 
 func PostScore(ctx *gin.Context) {
