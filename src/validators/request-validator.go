@@ -5,6 +5,9 @@ import "errors"
 var validGameId = "id"
 var validApiKey = "apiKey"
 
+var nameMaxLength = 3
+var maxScore = 500
+
 // Validates gameId and apiKey.
 func ValidateGameAndApi(gameId string, apiKey string) (bool, error) {
 	if gameId != validGameId || apiKey != validApiKey {
@@ -15,5 +18,13 @@ func ValidateGameAndApi(gameId string, apiKey string) (bool, error) {
 
 // Vaslidates score against gameId and the score.
 func ValidateGameAndScore(gameId string, name string, score int) (bool, error) {
-	return false, errors.New("score is not within limit of game")
+	if len(name) > nameMaxLength {
+		return false, errors.New("name is too long")
+	}
+
+	if score > maxScore {
+		return false, errors.New("score is too large")
+	}
+
+	return true, nil
 }
