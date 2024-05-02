@@ -14,6 +14,6 @@ func ValidateGameAndApi(gameId string, apiKey string) (bool, error) {
 }
 
 // Vaslidates score against gameId and the score.
-func ValidateGameAndScore(gameId string, score int) (bool, error) {
+func ValidateGameAndScore(gameId string, name string, score int) (bool, error) {
 	return false, errors.New("score is not within limit of game")
 }
