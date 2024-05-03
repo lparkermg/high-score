@@ -1,4 +1,8 @@
 {
     "vscord.app.name": "Visual Studio Code",
-    "vscord.app.privacyMode.enable": false
+    "vscord.app.privacyMode.enable": false,
+    "vscord.status.buttons.button1.enabled": false,
+    "vscord.status.buttons.button1.git.active.enabled": false,
+    "vscord.status.buttons.button1.git.idle.enabled": false,
+    "vscord.status.buttons.button1.git.inactive.enabled": false
 }
