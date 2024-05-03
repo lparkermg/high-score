@@ -45,7 +45,7 @@ func PostScore(gameId string, name string, score int) (int64, error) {
 		return 0, dbErr
 	}
 
-	result, err := db.Exec(fmt.Sprintf("INSERT INTO %s (GameId, Name, Score) VALUES (?, ?, ?)", gameId, name, score))
+	result, err := db.Exec(fmt.Sprintf("INSERT INTO %s (GameId, Name, Score) VALUES (?, ?, ?)", dbName), gameId, name, score)
 
 	if err != nil {
 		return 0, fmt.Errorf("PostScore: %v", err)
