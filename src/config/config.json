@@ -1,16 +1,14 @@
 {
-    "games": [
-        {
-            "gameId": "game1",
+    "games": {
+        "game1":{
             "apiKey": "apikey",
             "maxNameLength": 3,
             "maxScore": 100
         },
-        {
-            "gameId": "game2",
+        "game2" :{
             "apiKey": "apikey2",
             "maxNameLength": 5,
             "maxScore": 10000
         }
-    ]
+    }
 }

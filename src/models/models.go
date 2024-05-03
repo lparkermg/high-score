@@ -7,7 +7,6 @@ type Score struct {
 }
 
 type Game struct {
-	GameId        string `json:"gameId"`
 	ApiKey        string `json:"apiKey"`
 	MaxNameLength int    `json:"maxNameLength"`
 	MaxScore      int    `json:"maxScore"`
