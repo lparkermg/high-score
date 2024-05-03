@@ -17,8 +17,15 @@ func main() {
 	viper.SetEnvPrefix("highscore_service")
 	viper.AutomaticEnv()
 
+	// Hosting details
 	viper.SetDefault("host", "localhost")
 	viper.SetDefault("port", "8888")
+
+	// MySQL DB details.
+	viper.SetDefault("DB_USER", "test")
+	viper.SetDefault("DB_PASS", "test")
+	viper.SetDefault("DB_ADDRESS", "localhost:1234")
+	viper.SetDefault("DB_NAME", "DBScores")
 
 	viper.AddConfigPath("./config")
 	viper.SetConfigName("config")

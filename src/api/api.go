@@ -35,12 +35,17 @@ func GetScore(ctx *gin.Context) {
 	if !valid && err != nil {
 		// Get request is invalid, we should let the user know.
 		log.Println(err)
-		ctx.Status(http.StatusNotFound)
+		ctx.Status(http.StatusBadRequest)
 		return
 	}
 
 	// Request is valid, we should call the data access layer.
-	scores := data.GetScores(gameId, skip, take)
+	scores, scoresErr := data.GetScores(gameId, skip, take)
+
+	if scoresErr != nil {
+		log.Println(scoresErr)
+		ctx.Status(http.StatusNotFound)
+	}
 
 	ctx.IndentedJSON(http.StatusOK, scores)
 }
@@ -54,13 +59,14 @@ func PostScore(ctx *gin.Context) {
 	if !gameApiValid && gameApiErr != nil {
 		// Post request is invalid, we should let the user know.
 		log.Println(gameApiErr)
-		ctx.Status(http.StatusNotFound)
+		ctx.Status(http.StatusBadRequest)
 		return
 	}
 	var requestBody PostModel
 
 	if parseErr := ctx.BindJSON(&requestBody); parseErr != nil {
 		log.Println(parseErr)
+		ctx.Status(http.StatusBadRequest)
 		return
 	}
 
@@ -74,6 +80,14 @@ func PostScore(ctx *gin.Context) {
 	}
 
 	// Request is valid, we should call the data access layer.
-	data.PostScore(gameId, requestBody.Name, requestBody.Score)
+	id, err := data.PostScore(gameId, requestBody.Name, requestBody.Score)
+
+	if err != nil {
+		log.Println(err)
+		ctx.Status(http.StatusInternalServerError)
+		return
+	}
+
 	ctx.Status(http.StatusCreated)
+	ctx.Value(id)
 }
