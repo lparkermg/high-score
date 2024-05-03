@@ -34,6 +34,7 @@ func GetScore(ctx *gin.Context) {
 
 	if !valid && err != nil {
 		// Get request is invalid, we should let the user know.
+		log.Println(err)
 		ctx.Status(http.StatusNotFound)
 		return
 	}
@@ -52,6 +53,7 @@ func PostScore(ctx *gin.Context) {
 
 	if !gameApiValid && gameApiErr != nil {
 		// Post request is invalid, we should let the user know.
+		log.Println(gameApiErr)
 		ctx.Status(http.StatusNotFound)
 		return
 	}
@@ -66,6 +68,7 @@ func PostScore(ctx *gin.Context) {
 
 	if !valid && err != nil {
 		// Post request is invalid, we should let the user know.
+		log.Println(err)
 		ctx.Status(http.StatusNotFound)
 		return
 	}

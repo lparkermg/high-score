@@ -1,16 +1,18 @@
 package request_validators
 
-import "errors"
+import (
+	"errors"
 
-var validGameId = "id"
-var validApiKey = "apiKey"
+	"mrlparker/high-score/models"
 
-var nameMaxLength = 3
-var maxScore = 500
+	"github.com/spf13/viper"
+)
 
 // Validates gameId and apiKey.
 func ValidateGameAndApi(gameId string, apiKey string) (bool, error) {
-	if gameId != validGameId || apiKey != validApiKey {
+	games := getConfig()
+
+	if games[0].GameId != gameId || games[0].ApiKey != apiKey {
 		return false, errors.New("game id or api key are not valid")
 	}
 	return true, nil
@@ -18,13 +20,21 @@ func ValidateGameAndApi(gameId string, apiKey string) (bool, error) {
 
 // Vaslidates score against gameId and the score.
 func ValidateGameAndScore(gameId string, name string, score int) (bool, error) {
-	if len(name) > nameMaxLength {
+	games := getConfig()
+
+	if len(name) > games[0].MaxNameLength {
 		return false, errors.New("name is too long")
 	}
 
-	if score > maxScore {
+	if score > games[0].MaxScore {
 		return false, errors.New("score is too large")
 	}
 
 	return true, nil
+}
+
+func getConfig() []models.Game {
+	var games []models.Game
+	viper.UnmarshalKey("games", &games)
+	return games
 }
