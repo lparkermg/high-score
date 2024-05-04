@@ -28,6 +28,7 @@ func main() {
 	viper.SetDefault("DB_NAME", "DBScores")
 
 	viper.AddConfigPath("./config")
+	viper.AddConfigPath("/etc/highscore")
 	viper.SetConfigName("config")
 	viper.SetConfigType("json")
 
