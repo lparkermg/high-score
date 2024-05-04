@@ -27,6 +27,8 @@ func main() {
 	viper.SetDefault("DB_ADDRESS", "localhost:1234")
 	viper.SetDefault("DB_NAME", "DBScores")
 
+	viper.SetDefault("DB_SCORETABLE_NAME", "Scores")
+
 	viper.AddConfigPath("./config")
 	viper.AddConfigPath("/etc/highscore")
 	viper.SetConfigName("config")
