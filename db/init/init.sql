@@ -1,3 +1,5 @@
+-- This is for the local dev setup of this project.
+-- Make sure to follow the setup docs when being used in production.
 CREATE DATABASE DBScores;
 
 CREATE USER 'devuser'@'localhost' IDENTIFIED BY 'devpassword';
