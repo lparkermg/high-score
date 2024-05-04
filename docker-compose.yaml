@@ -5,9 +5,10 @@ services:
     environment:
       - MYSQL_USER=devuser
       - MYSQL_PASSWORD=devpassword
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
     volumes:
       - ./db/init:/docker-entrypoint-initdb.d/:ro
-      - mysql_storage:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
     networks:
       highscore_net:
   highscore-service:
