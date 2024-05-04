@@ -1,10 +1,12 @@
 # High Score
 A lightweight and open source high score service.
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/A1371A99)
+
 ## Intent
 The intent for this project is to be a relatively small and simple high score service that can be used in the cloud with minimal setup.
 
-For example, all you would need to do is setup a the services container as you would any other with environment variables, etc and then have it run in the cloud.
+For example, all you would need to do is setup a the services container as you would any other with environment variables, setup your mysql db and then have it run in the cloud.
 
 ## Requirements
 ### Storage
