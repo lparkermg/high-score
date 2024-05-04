@@ -23,7 +23,7 @@ services:
       - HIGHSCORE_SERVICE_HOST=highscore-service
       - HIGHSCORE_SERVICE_PORT=10100
     volumes:
-      ./config/config.json:/etc/highscore/config.json:ro
+      - ./config/config.json:/etc/highscore/config.json:ro
     networks:
       highscore_net:
     depends_on:
