@@ -19,8 +19,7 @@ func GetScores(gameId string, skip int, take int) ([]models.Score, error) {
 
 	var scores []models.Score
 
-	// TODO: Order by score descending, include skip + take
-	rows, err := db.Query(fmt.Sprintf("SELECT * FROM %s WHERE GameId = ?", dbName), gameId)
+	rows, err := db.Query(fmt.Sprintf("SELECT * FROM %s WHERE GameId = ? ORDER BY Score DESC LIMIT %v, %v", dbName, skip, take), gameId)
 
 	if err != nil {
 		return nil, err
