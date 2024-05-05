@@ -29,8 +29,6 @@ services:
       - HIGHSCORE_SERVICE_PORT=80
     ports:
       - "9999:80"
-    volumes:
-      - ./config/config.json:/etc/highscore/config.json:ro
     networks:
       highscore_net:
     depends_on:
