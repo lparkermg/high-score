@@ -14,3 +14,10 @@ CREATE TABLE Scores (
     Name TINYTEXT,
     Score INT UNSIGNED
 );
+
+CREATE TABLE Games (
+    GameId TINYTEXT
+    ApiKey TINYTEXT
+    MaxNameLength INT UNSIGNED
+    MaxScore INT UNSIGNED
+)
