@@ -9,7 +9,8 @@ import (
 	"github.com/spf13/viper"
 )
 
-var tableName string
+var scoreTableName string
+var gameTableName string
 
 func GetScores(gameId string, skip int, take int) ([]models.Score, error) {
 	db, dbErr := buildConnection()
@@ -19,7 +20,7 @@ func GetScores(gameId string, skip int, take int) ([]models.Score, error) {
 
 	var scores []models.Score
 
-	rows, err := db.Query(fmt.Sprintf("SELECT * FROM %s WHERE GameId = ? ORDER BY Score DESC LIMIT %v, %v", tableName, skip, take), gameId)
+	rows, err := db.Query(fmt.Sprintf("SELECT * FROM %s WHERE GameId = ? ORDER BY Score DESC LIMIT %v, %v", scoreTableName, skip, take), gameId)
 
 	if err != nil {
 		return nil, err
@@ -44,7 +45,7 @@ func PostScore(gameId string, name string, score int) (int64, error) {
 		return 0, dbErr
 	}
 
-	result, err := db.Exec(fmt.Sprintf("INSERT INTO %s (GameId, Name, Score) VALUES (?, ?, ?)", tableName), gameId, name, score)
+	result, err := db.Exec(fmt.Sprintf("INSERT INTO %s (GameId, Name, Score) VALUES (?, ?, ?)", scoreTableName), gameId, name, score)
 
 	if err != nil {
 		return 0, fmt.Errorf("PostScore: %v", err)
@@ -58,8 +59,27 @@ func PostScore(gameId string, name string, score int) (int64, error) {
 	return id, nil
 }
 
+func GetGame(gameId string) (*models.Game, error) {
+	db, dbErr := buildConnection()
+
+	if dbErr != nil {
+		return nil, dbErr
+	}
+
+	row := db.QueryRow(fmt.Sprintf("SELECT * FROM %s WHERE GameId = ?", scoreTableName), gameId)
+
+	var game *models.Game
+
+	if err := row.Scan(&game.Id, &game.ApiKey, &game.MaxNameLength, &game.MaxScore); err != nil {
+		return nil, fmt.Errorf("getGame %q: %v", gameId, err)
+	}
+
+	return game, nil
+}
+
 func buildConnection() (*sql.DB, error) {
-	tableName = viper.GetString("DB_SCORETABLE_NAME")
+	scoreTableName = viper.GetString("DB_SCORETABLE_NAME")
+	gameTableName = viper.GetString("DB_GAMETABLE_NAME")
 	cfg := mysql.Config{
 		User:   viper.GetString("DB_USER"),
 		Passwd: viper.GetString("DB_PASS"),
