@@ -10,14 +10,15 @@ GRANT ALL PRIVILEGES ON DBScores.* TO 'devuser'@'localhost';
 USE DBScores;
 
 CREATE TABLE Scores (
-    GameId TINYTEXT,
-    Name TINYTEXT,
-    Score INT UNSIGNED
+    GameId TINYTEXT NOT NULL,
+    Name TINYTEXT NOT NULL,
+    Score INT UNSIGNED NOT NULL
 );
 
 CREATE TABLE Games (
-    GameId TINYTEXT
-    ApiKey TINYTEXT
-    MaxNameLength INT UNSIGNED
-    MaxScore INT UNSIGNED
+    GameId TINYTEXT NOT NULL,
+    ApiKey TINYTEXT NOT NULL,
+    MaxNameLength INT UNSIGNED NOT NULL,
+    MaxScore INT UNSIGNED NOT NULL,
+    PRIMARY KEY (GameId)
 )
