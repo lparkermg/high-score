@@ -69,7 +69,6 @@ func GetGame(gameId string) (models.Game, error) {
 
 	row := db.QueryRow(fmt.Sprintf("SELECT * FROM %s WHERE GameId = ?", gameTableName), gameId)
 
-
 	if err := row.Scan(&game.GameId, &game.ApiKey, &game.MaxNameLength, &game.MaxScore); err != nil {
 		return game, fmt.Errorf("getGame %q: %v", gameId, err)
 	}
@@ -81,11 +80,12 @@ func buildConnection() (*sql.DB, error) {
 	scoreTableName = viper.GetString("DB_SCORETABLE_NAME")
 	gameTableName = viper.GetString("DB_GAMETABLE_NAME")
 	cfg := mysql.Config{
-		User:   viper.GetString("DB_USER"),
-		Passwd: viper.GetString("DB_PASS"),
-		Net:    "tcp",
-		Addr:   viper.GetString("DB_ADDRESS"),
-		DBName: viper.GetString("DB_NAME"),
+		User:                 viper.GetString("DB_USER"),
+		Passwd:               viper.GetString("DB_PASS"),
+		Net:                  "tcp",
+		Addr:                 viper.GetString("DB_ADDRESS"),
+		DBName:               viper.GetString("DB_NAME"),
+		AllowNativePasswords: true,
 	}
 
 	db, err := sql.Open("mysql", cfg.FormatDSN())

@@ -40,6 +40,7 @@ func main() {
 
 	router.GET("scores", api.GetScore)
 	router.POST("scores", api.PostScore)
+	router.GET("health", api.GetHealth)
 
 	// Setup server
 	host := viper.GetString("host")
