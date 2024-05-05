@@ -2,11 +2,9 @@ package request_validators
 
 import (
 	"errors"
-	"fmt"
 
+	data "mrlparker/high-score/data-access"
 	"mrlparker/high-score/models"
-
-	"github.com/spf13/viper"
 )
 
 // Validates gameId and apiKey.
@@ -43,12 +41,11 @@ func ValidateGameAndScore(gameId string, name string, score int) (bool, error) {
 }
 
 func getConfig(gameId string) (*models.Game, error) {
-	var game *models.Game
-	viper.UnmarshalKey(fmt.Sprintf("games.%v", gameId), &game)
+	game, err := data.GetGame(gameId)
 
-	if game == nil {
+	if err != nil {
 		return nil, errors.New("gameid is not valid")
 	}
 
-	return game, nil
+	return &game, nil
 }
