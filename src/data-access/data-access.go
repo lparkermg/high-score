@@ -59,19 +59,19 @@ func PostScore(gameId string, name string, score int) (int64, error) {
 	return id, nil
 }
 
-func GetGame(gameId string) (*models.Game, error) {
+func GetGame(gameId string) (models.Game, error) {
+	var game models.Game
 	db, dbErr := buildConnection()
 
 	if dbErr != nil {
-		return nil, dbErr
+		return game, dbErr
 	}
 
-	row := db.QueryRow(fmt.Sprintf("SELECT * FROM %s WHERE GameId = ?", scoreTableName), gameId)
+	row := db.QueryRow(fmt.Sprintf("SELECT * FROM %s WHERE GameId = ?", gameTableName), gameId)
 
-	var game *models.Game
 
-	if err := row.Scan(&game.Id, &game.ApiKey, &game.MaxNameLength, &game.MaxScore); err != nil {
-		return nil, fmt.Errorf("getGame %q: %v", gameId, err)
+	if err := row.Scan(&game.GameId, &game.ApiKey, &game.MaxNameLength, &game.MaxScore); err != nil {
+		return game, fmt.Errorf("getGame %q: %v", gameId, err)
 	}
 
 	return game, nil

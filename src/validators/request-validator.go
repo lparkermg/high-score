@@ -43,9 +43,9 @@ func ValidateGameAndScore(gameId string, name string, score int) (bool, error) {
 func getConfig(gameId string) (*models.Game, error) {
 	game, err := data.GetGame(gameId)
 
-	if err != nil || game == nil {
+	if err != nil {
 		return nil, errors.New("gameid is not valid")
 	}
 
-	return game, nil
+	return &game, nil
 }
