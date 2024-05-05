@@ -16,6 +16,10 @@ type PostModel struct {
 	Name  string `json:"name"`
 }
 
+func GetHealth(ctx *gin.Context) {
+	ctx.Status(http.StatusOK)
+}
+
 func GetScore(ctx *gin.Context) {
 	apiKey := ctx.Request.Header.Get("Scorer-Api-Key")
 	gameId := ctx.Request.Header.Get("Scorer-Game-Id")
