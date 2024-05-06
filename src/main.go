@@ -20,6 +20,7 @@ func main() {
 	// Hosting details
 	viper.SetDefault("host", "localhost")
 	viper.SetDefault("port", "8888")
+	viper.SetDefault("ROUTE_BASE", "/")
 
 	// MySQL DB details.
 	viper.SetDefault("DB_USER", "test")
@@ -37,10 +38,10 @@ func main() {
 
 	// Setup handler functions
 	router := gin.Default()
-
-	router.GET("scores", api.GetScore)
-	router.POST("scores", api.PostScore)
-	router.GET("health", api.GetHealth)
+	routeBase := viper.Get("ROUTE_BASE")
+	router.GET(fmt.Sprintf("%sscores", routeBase), api.GetScore)
+	router.POST(fmt.Sprintf("%sscores", routeBase), api.PostScore)
+	router.GET(fmt.Sprintf("%shealth", routeBase), api.GetHealth)
 
 	// Setup server
 	host := viper.GetString("host")
