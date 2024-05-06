@@ -42,6 +42,8 @@ Each of the following environment variables will need the prefix of `HIGHSCORE_S
 
 `PORT` - The port for the server to listen on.
 
+`ROUTE_BASE` - The base url sections or all routes (for example with a value or `/api/` `scores` will become `/api/scores`)
+
 `DB_USER` - The username for db access
 
 `DB_PASS` - The password for db access
